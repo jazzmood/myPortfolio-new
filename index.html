@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wisdom Osawe Albert | Technology & Digital Solutions Professional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0e17;
+      --bg-card: rgba(15, 23, 42, 0.7);
+      --bg-card-hover: rgba(30, 41, 59, 0.8);
+      --accent-teal: #8b5cf6;
+      --accent-amber: #f59e0b;
+      --accent-glow: rgba(139, 92, 246, 0.3);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-subtle: rgba(148, 163, 184, 0.15);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --nav-height: 72px;
+      --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Floating background orbs */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-orb-1 {
+      width: 600px;
+      height: 600px;
+      background: var(--accent-teal);
+      top: -200px;
+      right: -150px;
+    }
+    .bg-orb-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent-amber);
+      bottom: 20%;
+      left: -100px;
+    }
+    .bg-orb-3 {
+      width: 300px;
+      height: 300px;
+      background: #6366f1;
+      bottom: -50px;
+      right: 20%;
+    }
+
+    /* Floating navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 1000;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(10, 14, 23, 0.75);
+      border-bottom: 1px solid var(--border-subtle);
+      transform: translateY(0);
+    }
+    .nav.scrolled {
+      background: rgba(10, 14, 23, 0.9);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+    .nav.hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color var(--transition-smooth);
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-teal);
+    }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      padding-top: var(--nav-height);
+    }
+
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: 50vh;
+    }
+
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      padding-top: 6rem;
+      flex-wrap: wrap;
+    }
+    .hero-content {
+      flex: 1;
+      min-width: 280px;
+      max-width: 560px;
+    }
+    .hero-photo {
+      float: right;
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+    }
+    .hero-photo img {
+      width: 240px;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 3px solid rgba(139, 92, 246, 0.4);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.15);
+      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hero-photo img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5), 0 0 60px rgba(139, 92, 246, 0.2);
+      border-color: rgba(139, 92, 246, 0.6);
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--accent-teal);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .hero-location {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+    .hero-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero-contact a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color var(--transition-smooth);
+    }
+    .hero-contact a:hover {
+      color: var(--accent-teal);
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.875rem 1.75rem;
+      background: linear-gradient(135deg, var(--accent-teal), #7c3aed);
+      color: var(--bg-dark) !important;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 2rem;
+      background: linear-gradient(180deg, var(--accent-teal), var(--accent-amber));
+      border-radius: 2px;
+    }
+
+    .summary-text {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* Floating cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(10px);
+    }
+    .card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    .card h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--accent-teal);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+    .card ul {
+      list-style: none;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .card li {
+      padding: 0.25rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .card li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent-teal);
+      font-weight: bold;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(10px);
+    }
+    .skill-category:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 158, 11, 0.3);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+    }
+    .skill-category h4 {
+      font-family: var(--font-display);
+      color: var(--accent-amber);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .skill-tag {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--accent-teal);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .experience-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(10px);
+    }
+    .experience-item:hover {
+      transform: translateX(8px);
+      border-color: rgba(139, 92, 246, 0.25);
+    }
+    .experience-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .experience-item .meta {
+      color: var(--accent-teal);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .experience-item ul {
+      list-style: none;
+      color: var(--text-secondary);
+    }
+    .experience-item li {
+      padding: 0.35rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .experience-item li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent-teal);
+    }
+
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .tool-badge {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(245, 158, 11, 0.2));
+      border: 1px solid var(--border-subtle);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: var(--transition-smooth);
+    }
+    .tool-badge:hover {
+      color: var(--accent-teal);
+      border-color: var(--accent-teal);
+    }
+
+    .education-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .education-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: var(--transition-smooth);
+    }
+    .education-item:hover {
+      transform: translateY(-4px);
+    }
+    .education-item h3 {
+      font-family: var(--font-display);
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    .education-item .meta {
+      color: var(--accent-teal);
+      font-size: 0.9rem;
+    }
+
+    .strengths-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .strength-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      transition: var(--transition-smooth);
+    }
+    .strength-chip:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: var(--accent-teal);
+      color: var(--text-primary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .footer-links {
+      margin-top: 0.5rem;
+    }
+    .footer-links a {
+      color: var(--accent-teal);
+      text-decoration: none;
+    }
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Scroll reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* Parallax float on scroll */
+    .float-slow {
+      will-change: transform;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        background: rgba(10, 14, 23, 0.98);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: var(--transition-smooth);
+      }
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-toggle {
+        display: block;
+      }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-content {
+        max-width: 100%;
+      }
+      .hero-photo {
+        float: none;
+        margin: 0 auto;
+        order: -1;
+      }
+      .hero-photo img {
+        width: 200px;
+        height: 200px;
+      }
+      section {
+        padding: 3rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orb bg-orb-1 float-slow"></div>
+  <div class="bg-orb bg-orb-2 float-slow"></div>
+  <div class="bg-orb bg-orb-3 float-slow"></div>
+
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">WOA</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#competencies">Competencies</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </nav>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-photo reveal reveal-delay-2">
+        <img src="IMG_6904.JPG" alt="Wisdom Osawe Albert">
+      </div>
+      <div class="hero-content">
+        <h1 class="reveal">Wisdom Osawe Albert</h1>
+        <p class="hero-subtitle reveal reveal-delay-1">Technology & Digital Solutions Professional</p>
+        <p class="hero-location reveal reveal-delay-1">📍 Nigeria (Open to Relocation / Remote Opportunities)</p>
+        <div class="hero-contact reveal reveal-delay-2">
+          <a href="tel:07048000511">📞 07048000511</a>
+          <a href="mailto:wizzysax65@gmail.com">✉️ wizzysax65@gmail.com</a>
+        </div>
+        <a href="#summary" class="btn reveal reveal-delay-3">View Profile</a>
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2 class="section-title reveal">Professional Summary</h2>
+      <p class="summary-text reveal">
+        Multidisciplinary technology and digital solutions professional with a background in accounting and practical experience across cloud technologies (AWS), web development, AI-driven automation, social media marketing, and CCTV/security systems. Skilled in supporting digital platforms, assisting with cloud-based environments, and improving operational efficiency through automation and technology solutions. Recognized for analytical thinking, adaptability, and hands-on technical problem-solving.
+      </p>
+    </section>
+
+    <section id="competencies">
+      <h2 class="section-title reveal">Core Competencies</h2>
+      <div class="card-grid">
+        <div class="card reveal"><h4>Cloud & AWS</h4><ul><li>Cloud Technologies & AWS Fundamentals</li></ul></div>
+        <div class="card reveal reveal-delay-1"><h4>AI & Automation</h4><ul><li>AI & Workflow Automation</li></ul></div>
+        <div class="card reveal reveal-delay-2"><h4>Web & Digital</h4><ul><li>Web Development & Digital Systems</li></ul></div>
+        <div class="card reveal reveal-delay-3"><h4>Marketing</h4><ul><li>Social Media Marketing & Meta Ads</li></ul></div>
+        <div class="card reveal"><h4>Technical</h4><ul><li>Technical Troubleshooting & Support</li></ul></div>
+        <div class="card reveal reveal-delay-1"><h4>Surveillance</h4><ul><li>CCTV & Surveillance Systems</li></ul></div>
+        <div class="card reveal reveal-delay-2"><h4>Solutions</h4><ul><li>Digital & Technology Solutions</li></ul></div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title reveal">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-category reveal">
+          <h4>Cloud & AWS Technologies</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Amazon EC2</span>
+            <span class="skill-tag">Amazon S3</span>
+            <span class="skill-tag">AWS Lambda</span>
+            <span class="skill-tag">AWS CloudTrail</span>
+            <span class="skill-tag">Cloud Concepts</span>
+          </div>
+        </div>
+        <div class="skill-category reveal reveal-delay-1">
+          <h4>Web Development</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Responsive Design</span>
+          </div>
+        </div>
+        <div class="skill-category reveal reveal-delay-2">
+          <h4>AI & Automation</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Workflow Automation</span>
+            <span class="skill-tag">AI Tools Integration</span>
+            <span class="skill-tag">Process Optimization</span>
+          </div>
+        </div>
+        <div class="skill-category reveal reveal-delay-3">
+          <h4>Digital Marketing</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Meta Ads</span>
+            <span class="skill-tag">Social Media Strategy</span>
+            <span class="skill-tag">Content Optimization</span>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <h4>Technical & Field</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">CCTV Installation</span>
+            <span class="skill-tag">Surveillance Systems</span>
+            <span class="skill-tag">System Troubleshooting</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title reveal">Professional Experience</h2>
+      <div class="experience-item reveal">
+        <h3>Technology & Digital Solutions Specialist</h3>
+        <p class="meta">Self-Employed / Contract-Based</p>
+        <ul>
+          <li>Supported development and maintenance of web-based solutions and digital systems</li>
+          <li>Assisted with cloud-related configurations and AWS-based environments</li>
+          <li>Applied automation tools to improve workflow efficiency and reduce manual processes</li>
+          <li>Provided technical troubleshooting and system support across multiple technologies</li>
+        </ul>
+      </div>
+      <div class="experience-item reveal reveal-delay-1">
+        <h3>Social Media & Paid Advertising Support</h3>
+        <p class="meta">Freelance / Project-Based</p>
+        <ul>
+          <li>Assisted with social media visibility, engagement, and optimization strategies</li>
+          <li>Supported Meta Ads (Facebook Ads Manager) campaign setup and adjustments</li>
+          <li>Contributed to digital branding and online presence improvements</li>
+          <li>Helped implement performance-focused content and audience strategies</li>
+        </ul>
+      </div>
+      <div class="experience-item reveal reveal-delay-2">
+        <h3>CCTV & Technical Systems Installation</h3>
+        <p class="meta">Contract / Project-Based</p>
+        <ul>
+          <li>Installed and configured CCTV and surveillance systems</li>
+          <li>Performed camera setup, testing, and system troubleshooting</li>
+          <li>Ensured reliable system performance and client satisfaction</li>
+          <li>Delivered on-site technical support and issue resolution</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title reveal">Tools & Platforms</h2>
+      <div class="tools-list reveal">
+        <span class="tool-badge">Amazon Web Services (AWS)</span>
+        <span class="tool-badge">EC2</span>
+        <span class="tool-badge">S3</span>
+        <span class="tool-badge">Lambda</span>
+        <span class="tool-badge">CloudTrail</span>
+        <span class="tool-badge">Meta Ads / Facebook Ads Manager</span>
+        <span class="tool-badge">Web Technologies</span>
+        <span class="tool-badge">AI & Automation Tools</span>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2 class="section-title reveal">Education</h2>
+      <div class="education-grid">
+        <div class="education-item reveal">
+          <h3>Bachelor's Degree in Accounting</h3>
+          <p class="meta">University of Benin • 2010 – 2016</p>
+        </div>
+        <div class="education-item reveal reveal-delay-1">
+          <h3>Web Development Training</h3>
+          <p class="meta">NIIT • 2023 – 2024</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title reveal">Key Strengths</h2>
+      <div class="strengths-list reveal">
+        <span class="strength-chip">Strong analytical and problem-solving abilities</span>
+        <span class="strength-chip">Cross-functional technical skill set</span>
+        <span class="strength-chip">Adaptable and quick to learn</span>
+        <span class="strength-chip">Solution-oriented mindset</span>
+        <span class="strength-chip">Reliable, organized, and detail-focused</span>
+      </div>
+    </section>
+
+    <footer>
+      <p>Wisdom Osawe Albert — Technology & Digital Solutions Professional</p>
+      <p class="footer-links"><a href="mailto:wizzysax65@gmail.com">wizzysax65@gmail.com</a> • <a href="tel:07048000511">07048000511</a></p>
+    </footer>
+  </main>
+
+  <script>
+    // ===== Navbar scroll behavior (hide on scroll down, show on scroll up) =====
+    const nav = document.getElementById('nav');
+    let lastScrollY = window.scrollY;
+    const scrollThreshold = 80;
+
+    function handleNavScroll() {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > scrollThreshold) {
+        nav.classList.add('scrolled');
+        if (currentScrollY > lastScrollY) {
+          nav.classList.add('hidden');
+        } else {
+          nav.classList.remove('hidden');
+        }
+      } else {
+        nav.classList.remove('scrolled', 'hidden');
+      }
+      lastScrollY = currentScrollY;
+    }
+
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(handleNavScroll);
+    }, { passive: true });
+
+    // ===== Active section highlighting =====
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    function updateActiveLink() {
+      const scrollPos = window.scrollY + 150;
+      sections.forEach((section) => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        if (scrollPos >= top && scrollPos < top + height) {
+          navLinks.forEach((link) => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(updateActiveLink);
+    });
+    updateActiveLink();
+
+    // ===== Mobile menu toggle =====
+    const navToggle = document.getElementById('navToggle');
+    const navLinksEl = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      navLinksEl.classList.toggle('open');
+      navToggle.textContent = navLinksEl.classList.contains('open') ? '✕' : '☰';
+    });
+
+    navLinksEl.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinksEl.classList.remove('open');
+        navToggle.textContent = '☰';
+      });
+    });
+
+    // ===== Scroll reveal animation =====
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+
+    // ===== Parallax floating orbs on scroll =====
+    const orbs = document.querySelectorAll('.float-slow');
+
+    function parallaxOrbs() {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+
+      orbs.forEach((orb, i) => {
+        const speed = (i + 1) * 0.05;
+        const yOffset = scrollY * speed;
+        orb.style.transform = `translateY(${yOffset}px)`;
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(parallaxOrbs);
+    }, { passive: true });
+
+    // ===== Smooth scroll for anchor links =====
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
